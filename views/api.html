@@ -1,0 +1,10 @@
+<%- include header.html %>
+
+<h1>API</h1>
+<ul>
+    <% routes.forEach(function(route) { %>
+    <li><a href="<%= route %>"><%= route %></a></li>
+    <% }) %>
+</ul>
+
+<%- include footer.html %>
