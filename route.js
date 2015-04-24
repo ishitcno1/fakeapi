@@ -18,4 +18,10 @@ module.exports = function(app) {
             routes: routes
         });
     });
+
+    app.post('/post', function(req, res) {
+      res.status(201);
+      res.end;
+      // res.json({code: 1, msg: 'success'});
+    });
 };
