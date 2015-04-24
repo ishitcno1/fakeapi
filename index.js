@@ -10,7 +10,7 @@ os.networkInterfaces().wlan0.forEach(function(ni) {
   if (ni.family === 'IPv4')
     ip = ni.address;
   })
-var port = process.env.PORT || 8877
+var port = process.env.PORT || 6620
 
 // config
 app.engine('.html', template.__express);

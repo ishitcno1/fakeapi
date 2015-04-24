@@ -1,16 +1,15 @@
 var fs = require('fs');
+var requireDir = require('require-dir');
 
 module.exports = function(app) {
-
     var routes = [];
-    fs.readdirSync('./models/').forEach(function(file) {
-        var fileName = file.slice(0, -3);
-        routes.push(fileName);
-        var model = require('./models/' + fileName);
-        app.get('/' + fileName, function(req, res) {
-            res.json(model);
+    var models = requireDir('./models');
+    for (model in models) {
+        routes.push(model);
+        app.get('/' + model, function(req, res) {
+            res.json(models[model]);
         });
-    });
+    }
 
     app.get('/', function(req, res) {
         res.render('api', {
