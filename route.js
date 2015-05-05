@@ -7,7 +7,7 @@ module.exports = function(app) {
     for (model in models) {
         routes.push(model);
         app.get('/' + model, function(req, res) {
-            res.json(models[model]);
+            res.json(models[req.path.slice(1)]);
         });
     }
 
