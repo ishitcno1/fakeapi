@@ -1,9 +1,11 @@
 var express = require('express');
 var os = require('os');
 var template = require('ejs');
+var logger = require('morgan');
 var route = require('./route');
 
 var app = express();
+app.use(logger('combined'));
 
 var ip = '127.0.0.1';
 if (os.networkInterfaces().wlan0) {
