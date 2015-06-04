@@ -8,14 +8,20 @@ var app = express();
 app.use(logger('combined'));
 
 var ip = '127.0.0.1';
+if (os.networkInterfaces().eth0) {
+    os.networkInterfaces().eth0.forEach(function(ni) {
+        if (ni.family === 'IPv4')
+            ip = ni.address;
+    });
+}
 if (os.networkInterfaces().wlan0) {
     os.networkInterfaces().wlan0.forEach(function(ni) {
         if (ni.family === 'IPv4')
             ip = ni.address;
     });
 }
-if (os.networkInterfaces().eth0) {
-    os.networkInterfaces().eth0.forEach(function(ni) {
+if (os.networkInterfaces().ppp0) {
+    os.networkInterfaces().ppp0.forEach(function(ni) {
         if (ni.family === 'IPv4')
             ip = ni.address;
     });
