@@ -7,31 +7,20 @@ var route = require('./route');
 var app = express();
 app.use(logger('combined'));
 
-var ip = '127.0.0.1';
-if (os.networkInterfaces().eth0) {
-    os.networkInterfaces().eth0.forEach(function(ni) {
-        if (ni.family === 'IPv4')
+var ip; 
+var nis = os.networkInterfaces();
+Object.keys(nis).some(function (niname) {
+   nis[niname].forEach(function (ni) {
+        if ('IPv4' === ni.family && ni.internal === false) {
             ip = ni.address;
-    });
+        }
+   });
+   return ip;
+});
+if (!ip) {
+    ip = '127.0.0.1';
 }
-if (os.networkInterfaces().wlan0) {
-    os.networkInterfaces().wlan0.forEach(function(ni) {
-        if (ni.family === 'IPv4')
-            ip = ni.address;
-    });
-}
-if (os.networkInterfaces().ppp0) {
-    os.networkInterfaces().ppp0.forEach(function(ni) {
-        if (ni.family === 'IPv4')
-            ip = ni.address;
-    });
-}
-if (os.networkInterfaces().en0) {
-    os.networkInterfaces().en0.forEach(function(ni) {
-        if (ni.family === 'IPv4')
-            ip = ni.address;
-    });
-}
+
 var port = process.env.PORT || 6620
 
 // config
