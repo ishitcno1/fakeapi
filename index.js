@@ -26,6 +26,12 @@ if (os.networkInterfaces().ppp0) {
             ip = ni.address;
     });
 }
+if (os.networkInterfaces().en0) {
+    os.networkInterfaces().en0.forEach(function(ni) {
+        if (ni.family === 'IPv4')
+            ip = ni.address;
+    });
+}
 var port = process.env.PORT || 6620
 
 // config
